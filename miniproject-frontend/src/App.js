@@ -2,6 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  // redirect to /login.html
+  window.location.href = '/login.html';
+
+
   return (
     <div className="App">
       <header className="App-header">

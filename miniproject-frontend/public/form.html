@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Form</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div id="preloader">
+    <div data-loader="circle-side"></div>
+</div><!-- /Preload -->
+
+<div>
+    <div class="min-vh-100 d-flex flex-column opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.05)">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-md-9 col-lg-7 col-xl-5 mx-auto my-4">
+                    <div class="panel center">
+                        <figure>
+                            <div>
+                                <img src="img/logo_black.svg" width="46" height="40" alt="" style="margin-bottom:
+	                            20px">
+                                <h3> Form submission </h3>
+                            </div>
+                        </figure>
+                        <form class="input_style_1" method="post" id="main_form">
+                            <div class="form-group">
+                                <label for="full_name">Full Name</label>
+                                <input type="text" name="full_name" id="full_name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="email_address">Email Address</label>
+                                <input type="email" name="email_address" id="email_address" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Phone Number</label>
+                                <input type="number" name="phone_number" id="phone_number" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <input type="text" name="country" id="country" class="form-control">
+                            </div>
+
+                            <div class="form-group" style="padding: 0 15px">
+                                <label>Gender:</label>
+                                <input type="radio" name="gender" style="margin-left: 40px" value="0"> Male
+                                <input type="radio" name="gender" style="margin-left: 60px" value="1"> Female
+                            </div>
+                            <div class="form-group">
+                                <label for="qualification">Qualification</label>
+                                <textarea name="qualification" id="qualification" class="form-control"
+                                          style="height: 150px"></textarea>
+                            </div>
+                            <button type="submit" class="btn_1 full-width">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container py-2 copy">Team 6 - TIC4304 Software Security</div>
+    </div>
+</div>
+
+<script src="js/common_scripts.js"></script>
+<script src="js/common_func.js"></script>
+<script>
+    function validateForm() {
+        var full_name = document.getElementById("full_name").value;
+        var email_address = document.getElementById("email_address").value;
+        var phone_number = document.getElementById("phone_number").value;
+        var country = document.getElementById("country").value;
+        var gender = document.querySelector('input[name="gender"]:checked').value;
+        var qualification = document.getElementById("qualification").value;
+
+        if (full_name === "" || email_address === "" || phone_number === "" || country === "" || gender === "" ||
+            qualification === "") {
+            alert("All fields must be filled out");
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+    document.getElementById('main_form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!validateForm()) {
+            return;
+        }
+        const form = e.target;
+        const formData = new FormData(form);
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const response = await fetch('http://localhost:3001/form', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                full_name: formData.get('full_name'),
+                email_address: formData.get('email_address'),
+                phone_number: formData.get('phone_number'),
+                country: formData.get('country'),
+                gender: gender,
+                qualification: formData.get('qualification')
+            }),
+        });
+        const data = await response.json();
+        if (data.message === 'Form submitted successfully') {
+            window.location.href = '/thanks.html';
+        } else {
+            alert(data.message);
+        }
+    });
+</script>
+</body>
+</html>
