@@ -23,12 +23,31 @@
  				</div>
  				<div class="th-bottom-vector">
  					<img src="img/tv1.png" alt="">
-<!--					<button type="button" class="btn_1" href="/form.html">Submit another form</button>-->
+					<button type="button" class="btn_1" id="logout">Log Out</button>
  				</div>
  			</div>
  		</div>
  	</section>
+	<script>
+		document.getElementById("logout").addEventListener("click", function() {
+			fetch('http://localhost:3001/logout', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					token: localStorage.getItem('token')
+				})
+			}).then(
+					response => {
+                        console.log(response);
+						localStorage.removeItem('token');
+						window.location.href = 'login.html';
+					}
+			)
 
+		});
+	</script>
 	<script src="js/common_scripts.js"></script>
 	<script src="js/common_func.js"></script>
 </body>

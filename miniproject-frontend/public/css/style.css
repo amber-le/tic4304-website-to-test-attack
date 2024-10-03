@@ -1475,4 +1475,23 @@ a:hover {
 .thank-you-wrapper.thank-wrapper-style-one .th-bottom-vector button{
 
 }
+.button-logout{
+    display: flex;
+    justify-content: end;
+    margin-top: 40px;
+}
+.button-logout button{
+    color: #434bdf;
+    padding: 10px 40px;
+    border: #434bdf 1px solid;
+    border-radius: 5px;
+    background-color: transparent;
+}
+#logout{
+    color: #434bdf;
+    padding: 10px 40px;
+    border: #434bdf 1px solid;
+    border-radius: 5px;
+    background-color: transparent;
+}
 /*---------------------------------------------------- */

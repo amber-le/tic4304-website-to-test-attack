@@ -74,17 +74,13 @@ app.post('/register', [
             }
 
             res.json({message: 'User registered successfully'});
-            //back to the login page
-            res.redirect('/login.html');
         });
-
     } catch (err) {
 
         // console.error(err);
 
         // response json with message field
         return res.status(500).json({message: 'Error registering user'});
-
     }
 });
 
@@ -116,8 +112,20 @@ app.post('/login', (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({message: 'Invalid email or password'});
         }
+        // create new user token and install in the database user-token with expiry date 7 days, don't use jwt, use
+        // randome string
+        const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const query = 'INSERT INTO user_token (email, expire_time, token) VALUES (?, DATE_ADD(NOW(), INTERVAL 7' +
+            ' DAY),  ?)';
+        db.query(query, [email_address, token], (err, result) => {
+                if (err) {
+                    console.error('Error saving user token:', err);
+                    return res.status(500).json({message: 'Error logging in'});
+                }
+            }
+        );
 
-        res.json({message: 'User logged in successfully'});
+        res.json({message: 'User logged in successfully', token});
     });
 });
 //submit the form.html to the database
@@ -144,4 +152,19 @@ app.post('/form', (req, res) => {
             return res.status(500).json({message: 'Error submitting form'});
         }
     }
+);
+
+app.post('/logout', (req, res) => {
+    const {token} = req.body;
+    console.log(req.body);
+    const query = 'DELETE FROM user_token WHERE token = ?';
+    db.query(query, [token], (err, result) => {
+        if (err) {
+            console.error('Error deleting user token:', err);
+            return res.status(500).json({message: 'Error logging out'});
+        }
+        res.json({message: 'User logged out successfully'});
+    });
+
+}
 );

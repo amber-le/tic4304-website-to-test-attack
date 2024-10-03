@@ -88,6 +88,7 @@
         });
         const result = await response.json();
         if (result.message === 'User logged in successfully') {
+            localStorage.setItem('token', result.token);
             window.location.href = '/form.html';
         } else {
             alert(result.message);
@@ -95,5 +96,7 @@
     });
 
 </script>
+
+
 </body>
 </html>
