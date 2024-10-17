@@ -8,8 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9eb4ae-10e5-4ebd-8e1f-5fe25dff5a92" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/build_and_deploy.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/miniproject-backend/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/miniproject-backend/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/miniproject-frontend/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miniproject-backend/init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/miniproject-backend/init.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniproject-backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/miniproject-backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/miniproject-backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/miniproject-backend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +103,9 @@
       <workItem from="1727027403139" duration="19867000" />
       <workItem from="1727962420564" duration="6536000" />
       <workItem from="1727971549396" duration="6000" />
-      <workItem from="1727971561223" duration="694000" />
+      <workItem from="1727971561223" duration="1328000" />
+      <workItem from="1728813258326" duration="2600000" />
+      <workItem from="1728864825650" duration="5202000" />
     </task>
     <servers />
   </component>

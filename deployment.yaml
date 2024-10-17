@@ -1,0 +1,82 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-app-deployment
+  labels:
+    app: react-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-app
+  template:
+    metadata:
+      labels:
+        app: react-app
+    spec:
+      containers:
+      - name: react-app-container
+        image: my-react-app  # Ensure this image is available in Minikube's Docker environment
+        imagePullPolicy: Never  # Use the local image
+        ports:
+        - containerPort: 80  # Port your React app is running on inside the container
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-app-service
+spec:
+  selector:
+    app: react-app
+  ports:
+    - protocol: TCP
+      port: 80  # Service exposed port
+      targetPort: 80  # Forward traffic to port 3002 inside the container
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-deployment
+  labels:
+    app: node-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node-app-container
+        image: my-node-app  # Ensure this image is available in Minikube's Docker environment
+        imagePullPolicy: Never  # Use the local image
+        ports:
+        - containerPort: 3001  # Port your Node app is running on inside the container
+        env:
+        - name: DB_HOST
+          value: "host.minikube.internal"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASSWORD
+          value: "password"
+        - name: DB_NAME
+          value: "mini_project"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app-service
+spec:
+  selector:
+    app: node-app
+  ports:
+    - protocol: TCP
+      port: 80  # Service exposed port
+      targetPort: 3001  # Forward traffic to port 3000 inside the container
+  type: LoadBalancer
+
