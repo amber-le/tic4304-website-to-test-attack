@@ -38,8 +38,9 @@ if [ $? -ne 0 ]; then
 fi
 
 # Step 4: Wait for the pods to be ready
-echo "Waiting for pods to be ready..."
+echo "Waiting for FE pods to be ready..."
 kubectl wait --for=condition=ready pod -l app=react-app --timeout=90s
+echo "Waiting for BE pods to be ready..."
 kubectl wait --for=condition=ready pod -l app=node-app --timeout=90s
 
 
